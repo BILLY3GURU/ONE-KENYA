@@ -57,3 +57,16 @@
 - [ ] Update README.md if needed.
 - [ ] Ensure .gitignore includes node_modules.
 - [ ] Create MySQL database 'wazi_db'
+
+## Step 10: Integrate AI-Driven Integrity Features
+
+- [x] Add AI/ML dependencies to package.json (@tensorflow/tfjs, @tensorflow/tfjs-node).
+- [x] Create ai/ folder with AI models for ghost worker detection, procurement fraud, revenue leak monitoring.
+- [x] Add new database tables for AI inputs (payroll_data, biometric_data, procurement_tenders, tax_transactions).
+- [x] Update seed_simple.js to include sample AI input data.
+- [x] Add API endpoints in server.js for AI analysis (/api/ai/ghost-workers, /api/ai/procurement-fraud, /api/ai/revenue-leak).
+- [x] Create views/ai-dashboard.ejs for displaying AI results and pipeline.
+- [x] Update navigation to include AI Dashboard link.
+- [x] Update public/js/app.js to handle AI API calls and dynamic updates.
+- [x] Test AI integration and ensure models run correctly.
+- [x] Add integrity report generation endpoint.

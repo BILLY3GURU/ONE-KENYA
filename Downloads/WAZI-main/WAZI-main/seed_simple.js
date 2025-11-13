@@ -78,6 +78,64 @@ const seedData = async () => {
       )
     `);
 
+    // AI Input Tables
+    await connection.promise().execute(`
+      CREATE TABLE IF NOT EXISTS payroll_data (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        employee_id VARCHAR(50),
+        county VARCHAR(50),
+        payroll_amount DECIMAL(12,2),
+        attendance_rate DECIMAL(3,2),
+        biometric_matches INT,
+        work_output DECIMAL(5,2),
+        last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )
+    `);
+
+    await connection.promise().execute(`
+      CREATE TABLE IF NOT EXISTS procurement_tenders (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        contract_id VARCHAR(50),
+        county VARCHAR(50),
+        contract_value DECIMAL(15,2),
+        vendor_history_score DECIMAL(3,2),
+        price_variance DECIMAL(5,2),
+        tender_competition INT,
+        delivery_time INT,
+        quality_score DECIMAL(3,2),
+        status ENUM('pending', 'approved', 'flagged') DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    await connection.promise().execute(`
+      CREATE TABLE IF NOT EXISTS tax_transactions (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        transaction_id VARCHAR(50),
+        business_id VARCHAR(50),
+        sector VARCHAR(50),
+        transaction_amount DECIMAL(15,2),
+        tax_rate DECIMAL(5,4),
+        payment_pattern DECIMAL(3,2),
+        business_size INT,
+        compliance_history DECIMAL(3,2),
+        risk_score DECIMAL(5,4),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    await connection.promise().execute(`
+      CREATE TABLE IF NOT EXISTS ai_analysis_results (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        analysis_type ENUM('ghost_worker', 'procurement_fraud', 'revenue_leak'),
+        record_id VARCHAR(50),
+        risk_score DECIMAL(5,4),
+        is_flagged BOOLEAN DEFAULT FALSE,
+        analysis_data JSON,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
     console.log("Tables created successfully");
 
     // Insert fiscal savings data
@@ -174,6 +232,34 @@ const seedData = async () => {
       ('National Projected Annual Savings', 150000000000.00, 'KES', 'Estimated savings if scaled across all 47 counties'),
       ('Counties Ready for Deployment', 47.00, 'counties', 'Number of counties prepared for AI implementation'),
       ('Transparency Accountability Score', 100.00, '%', 'Level of transparency and accountability achieved')
+    `);
+
+    // Insert sample AI input data
+    await connection.promise().execute(`
+      INSERT INTO payroll_data (employee_id, county, payroll_amount, attendance_rate, biometric_matches, work_output) VALUES
+      ('EMP001', 'Nairobi', 45000.00, 0.95, 28, 85.50),
+      ('EMP002', 'Nairobi', 52000.00, 0.88, 25, 78.20),
+      ('EMP003', 'Nairobi', 38000.00, 0.72, 15, 45.30),
+      ('EMP004', 'Kiambu', 41000.00, 0.91, 26, 82.10),
+      ('EMP005', 'Kiambu', 48000.00, 0.85, 22, 75.60)
+    `);
+
+    await connection.promise().execute(`
+      INSERT INTO procurement_tenders (contract_id, county, contract_value, vendor_history_score, price_variance, tender_competition, delivery_time, quality_score) VALUES
+      ('CONT001', 'Nairobi', 2500000.00, 0.85, 0.15, 5, 90, 0.88),
+      ('CONT002', 'Nairobi', 1800000.00, 0.45, 0.45, 2, 180, 0.65),
+      ('CONT003', 'Kiambu', 950000.00, 0.92, 0.08, 7, 60, 0.95),
+      ('CONT004', 'Nakuru', 3200000.00, 0.78, 0.22, 4, 120, 0.82),
+      ('CONT005', 'Mombasa', 1500000.00, 0.35, 0.55, 1, 240, 0.45)
+    `);
+
+    await connection.promise().execute(`
+      INSERT INTO tax_transactions (transaction_id, business_id, sector, transaction_amount, tax_rate, payment_pattern, business_size, compliance_history) VALUES
+      ('TXN001', 'BUS001', 'Retail', 500000.00, 0.16, 0.85, 50, 0.90),
+      ('TXN002', 'BUS002', 'Manufacturing', 2500000.00, 0.25, 0.92, 200, 0.95),
+      ('TXN003', 'BUS003', 'Services', 750000.00, 0.18, 0.45, 25, 0.60),
+      ('TXN004', 'BUS004', 'Construction', 1800000.00, 0.20, 0.78, 75, 0.85),
+      ('TXN005', 'BUS005', 'Agriculture', 350000.00, 0.10, 0.35, 15, 0.40)
     `);
 
     // Create indexes

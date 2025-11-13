@@ -34,4 +34,5 @@ document.addEventListener("DOMContentLoaded", function () {
   else if (path === "/solution") currentPage = "solution";
   else if (path === "/data") currentPage = "data";
   else if (path === "/engage") currentPage = "engage";
+  else if (path === "/ai-dashboard") currentPage = "ai-dashboard";
 });

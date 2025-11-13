@@ -45,6 +45,12 @@
         >
           Join the Movement
         </button>
+        <button
+          onclick="navigateTo('ai-dashboard')"
+          class="text-sm font-medium transition-colors <%= currentPage === 'ai-dashboard' ? 'text-red-600' : 'text-gray-300 hover:text-white' %>"
+        >
+          AI Dashboard
+        </button>
       </div>
 
       <button class="md:hidden text-white" onclick="toggleMobileMenu()">
@@ -81,6 +87,12 @@
         class="block w-full text-left py-2 text-sm font-medium transition-colors <%= currentPage === 'engage' ? 'text-red-600' : 'text-gray-300 hover:text-white' %>"
       >
         Join the Movement
+      </button>
+      <button
+        onclick="navigateTo('ai-dashboard')"
+        class="block w-full text-left py-2 text-sm font-medium transition-colors <%= currentPage === 'ai-dashboard' ? 'text-red-600' : 'text-gray-300 hover:text-white' %>"
+      >
+        AI Dashboard
       </button>
     </div>
   </div>
