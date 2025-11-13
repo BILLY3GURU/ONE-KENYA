@@ -4,7 +4,7 @@ const path = require("path");
 const db = require("./db");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3004;
 
 // Set view engine to EJS
 app.set("view engine", "ejs");
@@ -261,6 +261,6 @@ app.get("/api/integrity-report", async (req, res) => {
 });
 
 // Start server
-app.listen(3002, () => {
-  console.log(`Server is running on http://localhost:3002`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
